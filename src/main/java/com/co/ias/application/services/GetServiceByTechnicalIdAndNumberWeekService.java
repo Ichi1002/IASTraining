@@ -51,21 +51,6 @@ public class GetServiceByTechnicalIdAndNumberWeekService implements GetServiceBy
             result.add(LocalDateTime.of(result1.get(_aux-1).getYear(),result1.get(_aux-1).getMonth().getValue(),result1.get(_aux-1).getDayOfMonth(),0,0,0));
 
         for (int i = 0; i < _aux ; i++) {
-            /*try {
-                if(result1.get(i)==null)
-                    System.out.println("in");
-            }catch ( IndexOutOfBoundsException e){
-                result1.add(LocalDateTime.of(result.get(i).getYear(),result.get(i).getMonth().getValue(),result.get(i).getDayOfMonth(),23,59,59));
-
-            }
-            try {
-                if(result.get(i)==null)
-                    System.out.println("in");
-            }catch ( IndexOutOfBoundsException e){
-                result.add(LocalDateTime.of(result1.get(i).getYear(),result1.get(i).getMonth().getValue(),result1.get(i).getDayOfMonth(),0,0,0));
-            }*/
-
-
             if(totalTime<TimeConstans.limitHour){
                 normalTime+=getNormalTime(result.get(i),result1.get(i));
                 nightTime+=getNightTime(result.get(i),result1.get(i));
@@ -75,39 +60,42 @@ public class GetServiceByTechnicalIdAndNumberWeekService implements GetServiceBy
                     double _auxNormalTime=getNormalTime(result.get(i),result1.get(i));
                     double _auxNightTime=getNightTime(result.get(i),result1.get(i));
                     double _auxSundayTime=getSundayTime(result.get(i),result1.get(i));
-                    double extraTime=totalTime- TimeConstans.limitHour; // Cuando Tiempo se paso despues de las 48 horas
-                    double _auxExtraTime=_auxNormalTime+_auxNightTime+_auxSundayTime; // Cuanto tiempo agrego antes de las 48 h
-                    double timeCorrecion=_auxExtraTime-extraTime; // tiempo no extra que se debe agregar
+
                     normalTime-=_auxNormalTime;
                     nightTime-=_auxNightTime;
                     sundayTime-=_auxSundayTime;
-                    if((totalTime-_auxExtraTime+_auxNormalTime)>TimeConstans.limitHour){
-                        normalTime+=timeCorrecion;
-                        normalTimeExtra+=(_auxNormalTime-timeCorrecion);
+
+                    totalTime-=(_auxNormalTime+_auxNightTime+_auxSundayTime);
+                    System.out.println(totalTime);
+
+                    double _auxi=48d-totalTime;
+
+                    if(_auxNormalTime>=_auxi){
+                        normalTime+=_auxi;
+                        normalTimeExtra+=(_auxNormalTime-_auxi);
                         nightTimeExtra+=_auxNightTime;
                         sundayTimeExtra+=_auxSundayTime;
-                    }
-                    if((totalTime-_auxExtraTime+_auxNightTime)>TimeConstans.limitHour){
-                        nightTime+=timeCorrecion;
-                        nightTimeExtra+=_auxNightTime;
+                    } else if (_auxNightTime>=_auxi) {
                         normalTime+=_auxNormalTime;
+                        nightTime+=_auxi;
+                        nightTimeExtra+=(_auxNightTime-_auxi);
                         sundayTimeExtra+=_auxSundayTime;
-                    }
-                    if((totalTime-_auxExtraTime+_auxSundayTime)>TimeConstans.limitHour){
-                        sundayTime+=timeCorrecion;
-                        sundayTimeExtra+=_auxSundayTime;
+
+                    }else if(_auxSundayTime>=_auxi){
                         normalTime+=_auxNormalTime;
-                        nightTimeExtra+=_auxNightTime;
+                        nightTime+=_auxNightTime;
+                        sundayTimeExtra+=(_auxSundayTime-_auxi);
+                        sundayTime+=_auxi;
                     }
+
+
                 }
             }else{
                 normalTimeExtra+=getNormalTime(result.get(i),result1.get(i));
                 nightTimeExtra+=getNightTime(result.get(i),result1.get(i));
                 sundayTimeExtra+=getSundayTime(result.get(i),result1.get(i));
             }
-            System.out.println(normalTime);
-            System.out.println(nightTime);
-            System.out.println(sundayTime);
+
             totalTime=normalTime+nightTime+sundayTime;
         }
         return getReport(normalTime,nightTime,sundayTime,normalTimeExtra,nightTimeExtra,sundayTimeExtra);

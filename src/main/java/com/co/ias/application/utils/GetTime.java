@@ -44,8 +44,9 @@ public class GetTime {
         }
         return totalNormalTime;
     }
-    public static Double getNightTime(LocalDateTime startingDate, LocalDateTime endingDate){
-        double totalNighTime=0d;
+    public static Double[] getNightTime(LocalDateTime startingDate, LocalDateTime endingDate){
+        //double totalNighTime=0d;
+        Double totalNighTime[]=new Double[2];
         if(!startingDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)){
             double initialTime=startingDate.getHour()+startingDate.getMinute()/60d+startingDate.getSecond()/3600d;
             double finalTime=endingDate.getHour()+endingDate.getMinute()/60d+endingDate.getSecond()/3600d;
@@ -59,8 +60,8 @@ public class GetTime {
                 if (finalTime < 7)
                     finalTimed=7d-finalTime;
                 if (finalTime > 20)
-                    finalTimed=finalTime-20d;
-                //totalNighTime=finalTimed+initialTimed;
+                    finalTimed=finalTime-20d;*/
+
             }else{
                 if (initialTime <= 20)
                     initialTimed=4d;
@@ -72,10 +73,14 @@ public class GetTime {
                     finalTimed=7d;
                 //totalNighTime=finalTimed+initialTimed;
             }
-            totalNighTime=finalTimed+initialTimed;
+            //totalNighTime=finalTimed+initialTimed;
+            totalNighTime[0]=finalTimed+initialTimed;
+            totalNighTime[1]=finalTimed+initialTimed;
         }
         return totalNighTime;
     }
+
+
     public static Double getSundayTime(LocalDateTime startingDate, LocalDateTime endingDate){
         double totalSundayTime=0d;
         double initialTime=startingDate.getHour()+startingDate.getMinute()/60d+startingDate.getSecond()/3600d;
