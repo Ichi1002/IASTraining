@@ -3,6 +3,7 @@ package com.co.ias.application.services;
 import com.co.ias.application.ports.input.CreateServiceUseCase;
 import com.co.ias.application.ports.output.OrderServiceRepository;
 
+import com.co.ias.infrastructure.models.OrderServiceDAO;
 import com.co.ias.infrastructure.models.OrderServiceDTO;
 
 import org.springframework.stereotype.Service;
@@ -18,10 +19,13 @@ public class CreateServiceService implements CreateServiceUseCase {
 
     @Override
     public OrderServiceDTO execute(OrderServiceDTO orderServiceDTO) {
-/*
-        orderServiceRepository.store(orderServiceDTO.toDomain());
-        return orderServiceDTO;/*
 
- */ return  null;
+            if (orderServiceDTO.getServiceStartDate().isBefore(orderServiceDTO.getServiceEndDate())) {
+                orderServiceRepository.store(orderServiceDTO);
+                return orderServiceDTO;
+            }else
+                return new OrderServiceDTO();
     }
 }
+
+

@@ -7,7 +7,7 @@ import com.co.ias.application.domain.valueObjs.ServiceId;
 import com.co.ias.application.domain.valueObjs.ServiceStartDate;
 import com.co.ias.application.domain.valueObjs.TechnicalId;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class OrderServiceDTO {
 
@@ -15,11 +15,11 @@ public class OrderServiceDTO {
 
     private String serviceId;
 
-    private Date serviceStartDate;
+    private LocalDateTime serviceStartDate;
 
-    private Date serviceEndDate;
+    private LocalDateTime serviceEndDate;
 
-    public OrderServiceDTO(String technicalId, String serviceId, Date serviceStartDate, Date serviceEndDate) {
+    public OrderServiceDTO(String technicalId, String serviceId, LocalDateTime serviceStartDate, LocalDateTime serviceEndDate) {
         this.technicalId = technicalId;
         this.serviceId = serviceId;
         this.serviceStartDate = serviceStartDate;
@@ -57,11 +57,11 @@ public class OrderServiceDTO {
         return serviceId;
     }
 
-    public Date getServiceStartDate() {
+    public LocalDateTime getServiceStartDate() {
         return serviceStartDate;
     }
 
-    public Date getServiceEndDate() {
+    public LocalDateTime getServiceEndDate() {
         return serviceEndDate;
     }
 
@@ -73,11 +73,11 @@ public class OrderServiceDTO {
         this.serviceId = serviceId;
     }
 
-    public void setServiceStartDate(Date serviceStartDate) {
+    public void setServiceStartDate(LocalDateTime serviceStartDate) {
         this.serviceStartDate = serviceStartDate;
     }
 
-    public void setServiceEndDate(Date serviceEndDate) {
+    public void setServiceEndDate(LocalDateTime serviceEndDate) {
         this.serviceEndDate = serviceEndDate;
     }
 
@@ -90,4 +90,19 @@ public class OrderServiceDTO {
                 ", serviceEndDate=" + serviceEndDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrderServiceDTO that = (OrderServiceDTO) o;
+
+        if (technicalId != null ? !technicalId.equals(that.technicalId) : that.technicalId != null) return false;
+        if (serviceId != null ? !serviceId.equals(that.serviceId) : that.serviceId != null) return false;
+        if (serviceStartDate != null ? !serviceStartDate.equals(that.serviceStartDate) : that.serviceStartDate != null)
+            return false;
+        return serviceEndDate != null ? serviceEndDate.equals(that.serviceEndDate) : that.serviceEndDate == null;
+    }
+
 }

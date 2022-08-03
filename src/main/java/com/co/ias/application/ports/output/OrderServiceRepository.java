@@ -1,13 +1,16 @@
 package com.co.ias.application.ports.output;
 
-import com.co.ias.application.domain.OrderService;
-import com.co.ias.application.domain.valueObjs.TechnicalId;
+import com.co.ias.infrastructure.models.OrderServiceDTO;
+
 
 import java.util.List;
 
 public interface OrderServiceRepository {
 
-    OrderService store(OrderService orderService);
+    OrderServiceDTO store(OrderServiceDTO orderService);
 
-    List<OrderService> get(TechnicalId technicalId, Integer weekNumber);
+    List<OrderServiceDTO> get(String technicalId, String weekNumber);
+
+    List<OrderServiceDTO> findAllBytechnicalId(String technicalId);
+
 }

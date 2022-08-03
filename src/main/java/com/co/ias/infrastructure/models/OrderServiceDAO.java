@@ -5,27 +5,28 @@ import com.co.ias.application.domain.valueObjs.ServiceEndDate;
 import com.co.ias.application.domain.valueObjs.ServiceId;
 import com.co.ias.application.domain.valueObjs.ServiceStartDate;
 import com.co.ias.application.domain.valueObjs.TechnicalId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Document(collation = "OrderServices")
-public class OrderServiceDAO {
+@Entity
+@Table(name = "OrderServices")
+public class OrderServiceDAO{
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String technicalId;
 
     private String serviceId;
 
-    private Date serviceStartDate;
+    private LocalDateTime serviceStartDate;
 
-    private Date serviceEndDate;
+    private LocalDateTime serviceEndDate;
 
-    public OrderServiceDAO(String technicalId, String serviceId, Date serviceStartDate, Date serviceEndDate) {
+    public OrderServiceDAO(String technicalId, String serviceId, LocalDateTime serviceStartDate, LocalDateTime serviceEndDate) {
         this.technicalId = technicalId;
         this.serviceId = serviceId;
         this.serviceStartDate = serviceStartDate;
@@ -63,11 +64,11 @@ public class OrderServiceDAO {
         return serviceId;
     }
 
-    public Date getServiceStartDate() {
+    public LocalDateTime getServiceStartDate() {
         return serviceStartDate;
     }
 
-    public Date getServiceEndDate() {
+    public LocalDateTime getServiceEndDate() {
         return serviceEndDate;
     }
 
@@ -79,11 +80,12 @@ public class OrderServiceDAO {
         this.serviceId = serviceId;
     }
 
-    public void setServiceStartDate(Date serviceStartDate) {
+    public void setServiceStartDate(LocalDateTime serviceStartDate) {
         this.serviceStartDate = serviceStartDate;
     }
 
-    public void setServiceEndDate(Date serviceEndDate) {
+    public void setServiceEndDate(LocalDateTime serviceEndDate) {
         this.serviceEndDate = serviceEndDate;
     }
-}
+
+    }

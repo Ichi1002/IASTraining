@@ -2,18 +2,20 @@ package com.co.ias.application.domain.valueObjs;
 
 import org.apache.commons.lang3.Validate;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ServiceEndDate {
 
-    Date date;
+    LocalDateTime date;
 
-    public ServiceEndDate(Date date) {
-        Validate.notNull(date,"Ending date can not be null");
+
+    public ServiceEndDate(LocalDateTime date) {
+        Validate.notNull(date,"Date can not be null");
+
         this.date = date;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -24,4 +26,3 @@ public class ServiceEndDate {
                 '}';
     }
 }
-

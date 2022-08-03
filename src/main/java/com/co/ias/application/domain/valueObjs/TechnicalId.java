@@ -7,7 +7,8 @@ public class TechnicalId {
     private final String id;
 
     public TechnicalId(String id) {
-        Validate.notNull("Technical Id can not be null");
+        Validate.notNull(id,"Technical Id can not be null");
+        Validate.notEmpty(id,"Technical Id can not be empty");
         this.id = id;
     }
 

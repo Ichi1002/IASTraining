@@ -1,19 +1,22 @@
 package com.co.ias.application.domain.valueObjs;
 
 import org.apache.commons.lang3.Validate;
+import java.time.LocalDateTime;
 
-import java.util.Date;
 
 public class ServiceStartDate {
 
-    Date date;
-
-    public ServiceStartDate(Date date) {
-        Validate.notNull(date,"Starting date can not be null");
-        this.date = date;
+    LocalDateTime date;
+     ServiceEndDate serviceEndDate;
+    public ServiceStartDate(LocalDateTime date) {
+        Validate.notNull(date,"Date can not be null");
+        //if(date.isBefore(serviceEndDate.getDate()))
+            this.date = date;
+        //else
+            //throw new IllegalArgumentException("Fecha de Inicio debe ser menor a la fecha final");
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 

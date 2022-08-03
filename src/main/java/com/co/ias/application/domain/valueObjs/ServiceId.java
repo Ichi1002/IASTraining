@@ -8,6 +8,8 @@ public class ServiceId {
 
     public ServiceId(String id) {
         Validate.notNull(id,"Service id can not be null");
+        Validate.notEmpty(id,"Service id can not be empty");
+
         this.id = id;
     }
 
