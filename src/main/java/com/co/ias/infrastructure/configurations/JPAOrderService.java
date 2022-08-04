@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface JPAOrderService extends CrudRepository<OrderServiceDAO,Long> {
 
+    List<OrderServiceDAO> findAllByTechnicalIdOrderByServiceStartDate(String id);
     List<OrderServiceDAO> findAllByTechnicalId(String id);
 }
 

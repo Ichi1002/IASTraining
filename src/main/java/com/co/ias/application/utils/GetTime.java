@@ -53,7 +53,33 @@ public class GetTime {
             double initialTimed=0d;
             double finalTimed=0d;
             if(startingDate.getDayOfYear()==endingDate.getDayOfYear()){
-                if (initialTime < 7)
+                if (initialTime <= 7 && finalTime<=7){
+                    totalNighTime[0]=finalTime-initialTime;
+                    totalNighTime[1]=0d;
+                }
+                if (initialTime <= 7 && finalTime>=7){
+                    totalNighTime[0]=7d-initialTime;
+                    totalNighTime[1]=0d;
+                }
+
+                if (initialTime >= 7 && finalTime<=20){
+                    totalNighTime[0]=0d;
+                    totalNighTime[1]=0d;
+                }
+                if (initialTime >=20 ){
+                    totalNighTime[0]=0d;
+                    totalNighTime[1]=finalTime-20d;
+                }
+                if (initialTime <=7 && finalTime>=20d ){
+                    totalNighTime[0]=7d-initialTime;
+                    totalNighTime[1]=finalTime-20d;
+                }
+                if (initialTime >=7 && initialTime <=20 && finalTime>=20d ){
+                    totalNighTime[0]=0d;
+                    totalNighTime[1]=finalTime-20d;
+                }
+
+                /*if (initialTime < 7)
                     initialTimed=7d-initialTime;
                 if (initialTime > 20)
                     initialTimed=finalTime-20d;
@@ -74,9 +100,10 @@ public class GetTime {
                 //totalNighTime=finalTimed+initialTimed;
             }
             //totalNighTime=finalTimed+initialTimed;
-            totalNighTime[0]=finalTimed+initialTimed;
-            totalNighTime[1]=finalTimed+initialTimed;
-        }
+
+        }else{
+        totalNighTime[0]=0d;
+        totalNighTime[1]=0d;}
         return totalNighTime;
     }
 

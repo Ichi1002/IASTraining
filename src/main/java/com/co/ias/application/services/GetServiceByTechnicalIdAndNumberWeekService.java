@@ -52,38 +52,54 @@ public class GetServiceByTechnicalIdAndNumberWeekService implements GetServiceBy
 
         for (int i = 0; i < _aux ; i++) {
             if(totalTime<TimeConstans.limitHour){
+                nightTime+=getNightTime(result.get(i),result1.get(i))[0];
                 normalTime+=getNormalTime(result.get(i),result1.get(i));
-                nightTime+=getNightTime(result.get(i),result1.get(i));
+                nightTime+=getNightTime(result.get(i),result1.get(i))[1];
                 sundayTime+=getSundayTime(result.get(i),result1.get(i));
                 totalTime=normalTime+nightTime+sundayTime;
                 if(totalTime>TimeConstans.limitHour){
                     double _auxNormalTime=getNormalTime(result.get(i),result1.get(i));
-                    double _auxNightTime=getNightTime(result.get(i),result1.get(i));
+                    double _auxNightTimeMorning=getNightTime(result.get(i),result1.get(i))[0];
+                    double _auxNightTimeNigth=getNightTime(result.get(i),result1.get(i))[1];
                     double _auxSundayTime=getSundayTime(result.get(i),result1.get(i));
 
+
                     normalTime-=_auxNormalTime;
-                    nightTime-=_auxNightTime;
+                    nightTime-=(_auxNightTimeMorning+_auxNightTimeNigth);
                     sundayTime-=_auxSundayTime;
 
-                    totalTime-=(_auxNormalTime+_auxNightTime+_auxSundayTime);
-                    System.out.println(totalTime);
+                    totalTime-=(_auxNormalTime+_auxNightTimeMorning+_auxNightTimeNigth+_auxSundayTime);
+
 
                     double _auxi=48d-totalTime;
 
-                    if(_auxNormalTime>=_auxi){
-                        normalTime+=_auxi;
-                        normalTimeExtra+=(_auxNormalTime-_auxi);
-                        nightTimeExtra+=_auxNightTime;
-                        sundayTimeExtra+=_auxSundayTime;
-                    } else if (_auxNightTime>=_auxi) {
+
+                    ////////
+                  if (_auxNightTimeMorning>=_auxi ) {
+                      nightTime+=_auxi;
+                      normalTimeExtra+=_auxNormalTime;
+                      nightTimeExtra+=(_auxNightTimeMorning+_auxNightTimeNigth-_auxi);
+                      sundayTimeExtra+=_auxSundayTime;
+
+                }
+                   else if((_auxNightTimeMorning+_auxNormalTime)>=_auxi){
+                      nightTime+=_auxNightTimeMorning;
+                      normalTime+=_auxi-_auxNightTimeMorning;
+                      normalTimeExtra+=(_auxNormalTime+_auxNightTimeMorning-_auxi);
+
+                       /* normalTime+=_auxi;
+                        normalTimeExtra+=(_auxNormalTime+_auxNightTimeMorning-_auxi);
+                        nightTimeExtra+=(_auxNightTimeMorning+_auxNightTimeNigth);
+                        sundayTimeExtra+=_auxSundayTime;*/
+                    } else if (_auxNightTimeNigth>=_auxi) {
                         normalTime+=_auxNormalTime;
                         nightTime+=_auxi;
-                        nightTimeExtra+=(_auxNightTime-_auxi);
+                        nightTimeExtra+=(_auxNightTimeNigth-_auxi);
                         sundayTimeExtra+=_auxSundayTime;
 
                     }else if(_auxSundayTime>=_auxi){
                         normalTime+=_auxNormalTime;
-                        nightTime+=_auxNightTime;
+                        nightTime+=(_auxNightTimeMorning+_auxNightTimeNigth);
                         sundayTimeExtra+=(_auxSundayTime-_auxi);
                         sundayTime+=_auxi;
                     }
@@ -92,7 +108,7 @@ public class GetServiceByTechnicalIdAndNumberWeekService implements GetServiceBy
                 }
             }else{
                 normalTimeExtra+=getNormalTime(result.get(i),result1.get(i));
-                nightTimeExtra+=getNightTime(result.get(i),result1.get(i));
+                nightTimeExtra+=getNightTime(result.get(i),result1.get(i))[0]+getNightTime(result.get(i),result1.get(i))[1];
                 sundayTimeExtra+=getSundayTime(result.get(i),result1.get(i));
             }
 

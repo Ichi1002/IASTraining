@@ -85,40 +85,98 @@ public class GetTimeTest {
 
     @Test
     public void return_total_night_time_if_hours_between_7_and_20(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=0d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,12,7,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,20,00,00);
-        Assert.assertEquals(0, getNightTime(startDate,endDate),0);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
     }
     @Test
     public void return_total_night_time_if_hours_between_19_and_20(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=0d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,12,19,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,20,00,00);
-        Assert.assertEquals(0, getNightTime(startDate,endDate),0);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
     }
     @Test
     public void return_total_night_time_if_hours_between_6_and_8(){
+        Double output[]=new Double[2];
+        output[0]=1d;
+        output[1]=0d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,12,6,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,8,00,00);
-        Assert.assertEquals(1, getNightTime(startDate,endDate),0);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
     }
     @Test
     public void return_total_night_time_if_hours_between_12_and_22(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=2d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,12,12,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,22,00,00);
-        Assert.assertEquals(2, getNightTime(startDate,endDate),0);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
     }
     @Test
     public void return_total_night_time_if_hours_between_6_and_22(){
+        Double output[]=new Double[2];
+        output[0]=1d;
+        output[1]=2d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,12,6,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,22,00,00);
-        Assert.assertEquals(3, getNightTime(startDate,endDate),0);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
+    }
+
+    @Test
+    public void return_total_night_time_if_hours_between_7_and_7(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=0d;
+        LocalDateTime startDate=LocalDateTime.of(2022,1,12,7,00,00);
+        LocalDateTime endDate=LocalDateTime.of(2022,1,12,7,00,00);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
+    }
+
+    @Test
+    public void return_total_night_time_if_hours_between_2_and_7(){
+        Double output[]=new Double[2];
+        output[0]=5d;
+        output[1]=0d;
+        LocalDateTime startDate=LocalDateTime.of(2022,1,12,2,00,00);
+        LocalDateTime endDate=LocalDateTime.of(2022,1,12,7,00,00);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
+    }
+
+    @Test
+    public void return_total_night_time_if_hours_between_20_and_20(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=0d;
+        LocalDateTime startDate=LocalDateTime.of(2022,1,12,20,00,00);
+        LocalDateTime endDate=LocalDateTime.of(2022,1,12,20,00,00);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
     }
     @Test
+    public void return_total_night_time_if_hours_between_20_and_23(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=3d;
+        LocalDateTime startDate=LocalDateTime.of(2022,1,12,20,00,00);
+        LocalDateTime endDate=LocalDateTime.of(2022,1,12,23,00,00);
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
+    }
+
+    @Test
     public void return_total_night_time_if_sunday(){
+        Double output[]=new Double[2];
+        output[0]=0d;
+        output[1]=0d;
         LocalDateTime startDate=LocalDateTime.of(2022,1,16,6,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,16,22,00,00);
-        Assert.assertEquals(0, getNightTime(startDate,endDate),0);
-    }
+        Assert.assertArrayEquals(output, getNightTime(startDate,endDate));
+    }/*
     @Test
     public void return_total_night_time_if_different_day_and_hours_between_23_and_1(){
         LocalDateTime startDate=LocalDateTime.of(2022,1,11,23,00,00);
@@ -142,7 +200,7 @@ public class GetTimeTest {
         LocalDateTime startDate=LocalDateTime.of(2022,1,11,19,00,00);
         LocalDateTime endDate=LocalDateTime.of(2022,1,12,8,00,00);
         Assert.assertEquals(11, getNightTime(startDate,endDate),0);
-    }
+    }*/
 
 
     @Test
